@@ -1,0 +1,54 @@
+{
+	"moduleName": "Banners",
+	"moduleKey": "banner",
+	"moduleDesc": "",
+	"docLink": "https://unbxd.github.io/search-JS-library/docs/configurations/BannerConfig.html",
+	"config": [
+		{
+			"name": "enabled",
+			"dataType": "boolean",
+			"options": [
+				{
+					"id": 1,
+					"name": "True",
+					"value": true
+				},
+				{
+					"id": 2,
+					"name": "False",
+					"value": false
+				}
+			]
+		},
+		{
+			"name": "el",
+			"dataType": "element"
+		},
+		{
+			"name": "template",
+			"dataType": "function"
+		},
+		{
+			"name": "tagname",
+			"dataType": "string",
+			"options": [
+				{
+					"id": true,
+					"name": "True"
+				},
+				{
+					"id": false,
+					"name": "False"
+				}
+			]
+		},
+		{
+			"name": "htmlattributes",
+			"dataType": "object"
+		},
+		{
+			"name": "attributes",
+			"dataType": "array"
+		}
+	]
+}

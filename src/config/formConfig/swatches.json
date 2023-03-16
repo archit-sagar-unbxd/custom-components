@@ -1,0 +1,36 @@
+{
+	"moduleName": "Swatches",
+	"moduleKey": "swatches",
+	"moduleDesc": "",
+	"docLink": "https://unbxd.github.io/search-JS-library/docs/configurations/SwatchesConfig.html",
+	"config": [
+		{
+			"name": "enabled",
+			"dataType": "boolean",
+			"options": [
+				{
+					"id": 1,
+					"name": "true",
+					"value": true
+				},
+				{
+					"id": 2,
+					"name": "false",
+					"value": false
+				}
+			]
+		},
+		{
+			"name": "attributesMap",
+			"dataType": "object"
+		},
+		{
+			"name": "swatchClass",
+			"dataType": "string"
+		},
+		{
+			"name": "template",
+			"dataType": "function"
+		}
+	]
+}

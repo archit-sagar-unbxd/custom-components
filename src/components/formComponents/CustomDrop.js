@@ -1,7 +1,9 @@
+import React from "react";
+
 import { Dropdown } from "unbxd-react-components";
 
-const Customdrop = (props) => {
+const CustomDrop = (props) => {
 	return <Dropdown {...props} />;
 };
 
-export { Customdrop };
+export default CustomDrop;

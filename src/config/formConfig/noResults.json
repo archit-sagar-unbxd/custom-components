@@ -1,0 +1,12 @@
+{
+	"moduleName": "No Results",
+	"moduleKey": "noResults",
+	"moduleDesc": "",
+	"docLink": "https://unbxd.github.io/search-JS-library/docs/configurations/NoResultsConfig.html",
+	"config": [
+		{
+			"name": "template",
+			"dataType": "function"
+		}
+	]
+}

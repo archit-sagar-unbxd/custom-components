@@ -1,8 +1,8 @@
 import React from "react";
 import { Input } from "unbxd-react-components";
 
-const Custominput = (props) => {
+const CustomInput = (props) => {
 	return <Input {...props} />;
 };
 
-export { Custominput };
+export default CustomInput;

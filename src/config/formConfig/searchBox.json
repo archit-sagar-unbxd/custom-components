@@ -1,0 +1,15 @@
+{
+	"moduleName": "Search Box",
+	"moduleDesc": "",
+	"docLink": "https://unbxd.github.io/search-JS-library/docs/configurations/SearchBar.html",
+	"config": [
+		{
+			"name": "searchBoxEl",
+			"dataType": "element"
+		},
+		{
+			"name": "searchButtonEl",
+			"dataType": "element"
+		}
+	]
+}

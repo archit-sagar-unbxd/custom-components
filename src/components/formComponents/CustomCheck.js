@@ -1,8 +1,8 @@
 import React from "react";
 import { Checkbox } from "unbxd-react-components";
 
-const Customchecks = (props) => {
+const CustomCheck = (props) => {
 	return <Checkbox {...props} />;
 };
 
-export { Customchecks };
+export default CustomCheck;

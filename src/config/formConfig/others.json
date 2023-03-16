@@ -1,0 +1,95 @@
+{
+	"moduleName": "others",
+	"moduleDesc": "",
+	"docLink": "https://unbxd.github.io/search-JS-library/docs/configurations/MiscellaneousConfig.html",
+	"config": [
+		{
+			"name": "unbxdAnalytics",
+			"dataType": "boolean",
+			"options": [
+				{
+					"id": 1,
+					"name": "true",
+					"value": true
+				},
+				{
+					"id": 2,
+					"name": "false",
+					"value": false
+				}
+			]
+		},
+		{
+			"name": "hashMode",
+			"dataType": "boolean",
+			"options": [
+				{
+					"id": 1,
+					"name": "true",
+					"value": true
+				},
+				{
+					"id": 2,
+					"name": "false",
+					"value": false
+				}
+			]
+		},
+		{
+			"name": "updateUrls",
+			"dataType": "boolean",
+			"options": [
+				{
+					"id": 1,
+					"name": "true",
+					"value": true
+				},
+				{
+					"id": 2,
+					"name": "false",
+					"value": false
+				}
+			]
+		},
+		{
+			"name": "actionBtnClass",
+			"dataType": "string"
+		},
+		{
+			"name": "actionChangeClass",
+			"dataType": "string"
+		},
+		{
+			"name": "allowExternalUrlParams",
+			"dataType": "boolean",
+			"options": [
+				{
+					"id": 1,
+					"name": "true",
+					"value": true
+				},
+				{
+					"id": 2,
+					"name": "false",
+					"value": false
+				}
+			]
+		},
+		{
+			"name": "extraParams",
+			"dataType": "object"
+		},
+		{
+			"name": "defaultFilters",
+			"dataType": "object"
+		},
+		{
+			"name": "searchEndPoint",
+			"dataType": "string"
+		},
+		{
+			"name": "browseQueryParam",
+			"dataType": "string"
+		}
+	]
+}

@@ -1,8 +1,8 @@
 import React from "react";
 import { RadioList } from "unbxd-react-components";
 
-const Customradio = (props) => {
+const CustomRadio = (props) => {
 	return <RadioList {...props} />;
 };
 
-export { Customradio };
+export default CustomRadio;

@@ -1,0 +1,16 @@
+{
+	"moduleName": "Loader",
+	"moduleKey": "loader",
+	"moduleDesc": "",
+	"docLink": "https://unbxd.github.io/search-JS-library/docs/configurations/LoaderConfig.html",
+	"config": [
+		{
+			"name": "el",
+			"dataType": "element"
+		},
+		{
+			"name": "template",
+			"dataType": "function"
+		}
+	]
+}

@@ -1,0 +1,44 @@
+{
+	"moduleName": "Breadcrumbs",
+	"moduleKey": "breadcrumb",
+	"moduleDesc": "",
+	"docLink": "https://unbxd.github.io/search-JS-library/docs/configurations/BreadCrumbConfig.html",
+	"config": [
+		{
+			"name": "enabled",
+			"dataType": "boolean",
+			"options": [
+				{
+					"id": 1,
+					"name": "true",
+					"value": true
+				},
+				{
+					"id": 2,
+					"name": "false",
+					"value": false
+				}
+			]
+		},
+		{
+			"name": "el",
+			"dataType": "element"
+		},
+		{
+			"name": "template",
+			"dataType": "function"
+		},
+		{
+			"name": "selectorClass",
+			"dataType": "strng"
+		},
+		{
+			"name": "tagName",
+			"dataType": "string"
+		},
+		{
+			"name": "htmlAttributes",
+			"dataType": "object"
+		}
+	]
+}

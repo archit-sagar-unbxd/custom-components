@@ -1,0 +1,15 @@
+{
+	"moduleName": "Authentication",
+	"moduleDesc": "",
+	"docLink": "https://unbxd.github.io/search-JS-library/docs/configurations/SiteKey.html",
+	"config": [
+		{
+			"name": "siteKey",
+			"dataType": "string"
+		},
+		{
+			"name": "apiKey",
+			"dataType": "string"
+		}
+	]
+}
