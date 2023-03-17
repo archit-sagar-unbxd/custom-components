@@ -33,12 +33,14 @@
 			"dataType": "string",
 			"options": [
 				{
-					"id": true,
-					"name": "True"
+					"id": 1,
+					"name": "True",
+					"value": true
 				},
 				{
-					"id": false,
-					"name": "False"
+					"id": 2,
+					"name": "False",
+					"value": false
 				}
 			]
 		},

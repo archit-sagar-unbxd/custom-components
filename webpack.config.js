@@ -14,6 +14,9 @@ module.exports = {
 	devServer: {
 		port: 3030, // you can change the port
 	},
+	optimization: {
+    	minimize: false,
+	},
 	module: {
 		rules: [
 			{
