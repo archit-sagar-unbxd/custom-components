@@ -12,39 +12,64 @@ const FormWrapper = (props = {}) => {
 			moduleKey = "",
 		} = {},
 		updateFormData,
-		formValue = {},
+		formData = {},
 	} = props;
 
-	// const [formValue, setFormValue] = useState({});
+	const debounce = (callback, wait) => {
+		let timeoutId = null;
+		return (...args) => {
+			window.clearTimeout(timeoutId);
+			timeoutId = window.setTimeout(() => {
+				callback.apply(null, args);
+			}, wait);
+		};
+	};
 
 	const onChange = (obj = {}) => {
 		let objData = obj.data;
-
-		for (let configEl of config) {
-			let options = configEl.options;
-
-			if (options) {
-				let name = configEl.name;
-				let selectedVal = objData[name];
-				if (selectedVal) {
-					selectedVal = selectedVal.value;
+		if (objData) {
+			for (let configEl of config) {
+				let options = configEl.options;
+				const dataType = configEl.dataType;
+				if (options) {
+					let name = configEl.name;
+					let selectedVal = objData[name];
+					if (selectedVal && dataType === "string") {
+						selectedVal = selectedVal.value;
+					} else if (selectedVal && dataType === "boolean") {
+						for (let option of options) {
+							if (option.id === parseInt(selectedVal)) {
+								selectedVal = option.value;
+							}
+						}
+					}
 					objData = { ...objData, [name]: selectedVal };
 				}
 			}
-		}
 
-		// handle obj.errors later on
-		if (objData) {
-			updateFormData(objData, moduleKey);
+			// handle obj.errors later on
+			if (objData) {
+				updateFormData(objData, moduleKey);
+			}
 		}
 	};
+
 	const onCodeChange = (field, code) => {
-		// setFormValue({ ...formValue, [field]: code });
+		// if (code) {
 		updateFormData({ [field]: code }, moduleKey);
+		// }
 	};
+
+	const delayChange = debounce(function (element, code) {
+		if (!code) {
+			onChange(element);
+		} else {
+			onCodeChange(element, code);
+		}
+	}, 1000);
 
 	return (
-		<Form onChange={onChange}>
+		<Form onChange={delayChange}>
 			<h1 className="moduleName">{moduleName}</h1>
 			<p className="moduleDesc">{moduleDesc}</p>
 			<a className="moduleLink" href={docLink} target="_blank">
@@ -53,12 +78,12 @@ const FormWrapper = (props = {}) => {
 			{config.map((conf, index) => {
 				return (
 					<ConfigWrapper
-						formValue={formValue}
+						formData={formData}
 						key={index}
 						docLink={docLink}
 						attrConfig={conf}
-						onChange={onChange}
-						onCodeChange={onCodeChange}
+						onChange={delayChange}
+						onCodeChange={delayChange}
 					/>
 				);
 			})}

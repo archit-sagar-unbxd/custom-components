@@ -1,5 +1,6 @@
 {
 	"moduleName": "Authentication",
+	"moduleKey": "authentication",
 	"moduleDesc": "",
 	"docLink": "https://unbxd.github.io/search-JS-library/docs/configurations/SiteKey.html",
 	"config": [

@@ -12,11 +12,9 @@ import WrapperPreloader from "./WrapperPreloader";
 const ConfigWrapper = (props = {}) => {
 	const {
 		attrConfig: { dataType = "", required = false, name = "", options } = {},
-		formValue = {},
 		onCodeChange,
 		docLink,
 	} = props;
-
 	switch (dataType) {
 		case "number": //text type(number)
 			return (
@@ -27,12 +25,7 @@ const ConfigWrapper = (props = {}) => {
 						required={required}
 						docLink={docLink}
 					/>
-					<CustomInput
-						type="number"
-						name={name}
-						label={name}
-						value={formValue[name]}
-					/>
+					<CustomInput type="number" name={name} />
 				</div>
 			);
 
@@ -47,9 +40,6 @@ const ConfigWrapper = (props = {}) => {
 						required={required}
 						docLink={docLink}
 					/>
-					<label className="RCB-form-el-label" htmlFor={name}>
-						{name}
-					</label>
 					<CodeMirror
 						theme={darculaInit({
 							settings: {
@@ -60,11 +50,10 @@ const ConfigWrapper = (props = {}) => {
 						})}
 						placeholder="Insert code here..."
 						height="200px"
-						width="500px"
+						width="100%"
 						name={name}
 						extensions={[javascript({ jsx: true })]}
 						onChange={(code) => onCodeChange(name, code)}
-						value={formValue[name]}
 					/>
 				</div>
 			);
@@ -82,7 +71,7 @@ const ConfigWrapper = (props = {}) => {
 						name={name}
 						appearance="block"
 						className={name}
-						label="Are you sure?"
+						label=""
 						options={options}
 					/>
 				</div>
@@ -101,7 +90,8 @@ const ConfigWrapper = (props = {}) => {
 							required={required}
 							docLink={docLink}
 						/>
-						<CustomInput value={formValue[name]} name={name} label={name} />
+						<CustomInput name={name} />
+						{/* <CustomInput value={formData[name]} name={name} /> */}
 					</div>
 				);
 			} else {
@@ -114,13 +104,10 @@ const ConfigWrapper = (props = {}) => {
 							docLink={docLink}
 						/>
 						<CustomDrop
-							// onChange={(selected, e) => onDropdownChange(name, selected, e)}
-							label={name}
 							name={name}
 							appearance="block"
 							className=""
 							options={options}
-							value={formValue[name]}
 						/>
 					</div>
 				);
