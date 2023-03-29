@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Vanilla2 from "../Vanilla2";
 import FormWrapper from "./FormWrapper";
+import ConfirmPopUp from "./popupComponents/confirm";
 
 import authConfig from "../config/formConfig/authentication.json";
 import searchBoxConfig from "../config/formConfig/searchBox.json";
@@ -23,12 +23,16 @@ import { darculaInit } from "@uiw/codemirror-theme-darcula";
 import { tags as t } from "@lezer/highlight";
 import { javascript } from "@codemirror/lang-javascript";
 
-// import madrasLink from "../inputJson/madrasLink_searchconfig";
+import defaultConfig from "../inputJson/dummyMadrasLink.json";
+// import defaultConfig from "../inputJson/empty.json";
 
 const FormBuilder = (props = {}) => {
+	const { setValidatedConfig } = props;
 	let masterConfig = {};
 	let validatedData = {};
-	const [formData, setFormData] = useState({});
+	const [popUps, setPopUps] = useState({ confirm: false });
+	const [formData, setFormData] = useState(defaultConfig);
+	const [selectedAcc, setSelectedAcc] = useState(null);
 
 	const formConfigs = [
 		authConfig,
@@ -71,7 +75,21 @@ const FormBuilder = (props = {}) => {
 		}
 	};
 
-	var validator = () => {
+	const changeFormData = (field, code) => {
+		try {
+			console.log(
+				field,
+				typeof code,
+				typeof JSON.parse(code),
+				JSON.parse(code)
+			);
+			setFormData(JSON.parse(code));
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	let validator = () => {
 		return JSON.stringify(
 			{ ...formData },
 			function (idx, value) {
@@ -79,139 +97,267 @@ const FormBuilder = (props = {}) => {
 					let moduleConfig = masterConfig[moduleKey];
 					let formConfig = formData[moduleKey];
 
-					validatedData = {
-						...validatedData,
-						[moduleKey]: { ...formConfig },
-					};
-					for (let element in formConfig) {
-						for (let index in moduleConfig) {
-							const eleConfig = moduleConfig[index];
+					if (!moduleConfig) {
+						try {
+							let evaluatedVal = eval(formConfig);
+							validatedData = {
+								...validatedData,
+								[moduleKey]: evaluatedVal,
+							};
+						} catch (err) {
+							validatedData = {
+								...validatedData,
+								[moduleKey]: formConfig,
+							};
+						}
+					} else {
+						validatedData = {
+							...validatedData,
+							[moduleKey]: { ...formConfig },
+						};
 
-							if (eleConfig["name"] === element) {
-								const eleDataType = eleConfig["dataType"];
+						for (let element in formConfig) {
+							for (let index in moduleConfig) {
+								const eleConfig = moduleConfig[index];
 
-								// based on dataType do the required
-								if (eleDataType === "element" || eleDataType === "array") {
-									try {
+								if (eleConfig["name"] === element) {
+									const eleDataType = eleConfig["dataType"];
+
+									// based on dataType do the required
+									if (eleDataType === "element" || eleDataType === "array") {
+										try {
+											const eleVal = formConfig[element];
+											if (eleVal) {
+												let valModuleConfig = {
+													...validatedData[moduleKey],
+													[element]: eval(eleVal),
+												};
+												validatedData = {
+													...validatedData,
+													[moduleKey]: { ...valModuleConfig },
+												};
+											}
+										} catch (error) {
+											console.log("element:", moduleKey, element, error);
+										}
+									} else if (eleDataType === "boolean") {
+										try {
+											const eleVal = formConfig[element];
+											if (eleVal) {
+												let valModuleConfig = {
+													...validatedData[moduleKey],
+													[element]: eval(eleVal),
+												};
+												validatedData = {
+													...validatedData,
+													[moduleKey]: { ...valModuleConfig },
+												};
+											}
+										} catch (error) {
+											console.log("boolean:", moduleKey, element, error);
+										}
+									} else if (eleDataType === "number") {
 										const eleVal = formConfig[element];
 										if (eleVal) {
 											let valModuleConfig = {
 												...validatedData[moduleKey],
-												[element]: eval(eleVal),
+												[element]: parseInt(eleVal),
 											};
 											validatedData = {
 												...validatedData,
 												[moduleKey]: { ...valModuleConfig },
 											};
 										}
-									} catch (error) {
-										console.log(error);
-									}
-								} else if (eleDataType === "object") {
-									try {
-										const eleVal = formConfig[element];
-										if (eleVal) {
+									} else if (eleDataType === "object") {
+										try {
+											const eleVal = formConfig[element];
+											if (eleVal) {
+												let valModuleConfig = {
+													...validatedData[moduleKey],
+													[element]: JSON.parse(eleVal),
+												};
+												validatedData = {
+													...validatedData,
+													[moduleKey]: { ...valModuleConfig },
+												};
+											}
+										} catch (error) {
+											console.log("object:", moduleKey, element, error);
+										}
+									} else if (eleDataType === "function") {
+										try {
+											let evaluatedVal = eval("(" + formConfig[element] + ")");
 											let valModuleConfig = {
 												...validatedData[moduleKey],
-												[element]: JSON.parse(eleVal),
+												[element]: evaluatedVal,
 											};
 											validatedData = {
 												...validatedData,
 												[moduleKey]: { ...valModuleConfig },
 											};
+										} catch (error) {
+											console.log("function:", moduleKey, element, error);
 										}
-									} catch (error) {
-										console.log(error);
-									}
-								} else if (eleDataType === "function") {
-									try {
-										// x = formConfig[element];
-										let evaluatedVal = eval("(" + formConfig[element] + ")");
-										let valModuleConfig = {
-											...validatedData[moduleKey],
-											[element]: evaluatedVal,
-										};
-										validatedData = {
-											...validatedData,
-											[moduleKey]: { ...valModuleConfig },
-										};
-									} catch (error) {
-										console.log(error);
 									}
 								}
 							}
 						}
 					}
 				}
-				console.log(validatedData);
+				setValidatedConfig({ ...validatedData });
+				// console.log(validatedData);
 			},
-			2
+			4
 		);
 	};
 
+	let showContent = (i) => {
+		if (selectedAcc == i) {
+			return setSelectedAcc(null);
+		}
+		setSelectedAcc(i);
+		// console.log(e);
+	};
+
+	let toggleConfig = () => {
+		let formComponent = document.getElementById("formComponents");
+		let formConfig = document.getElementById("formjson");
+		formComponent.classList.toggle("hidden");
+		formConfig.classList.toggle("hidden");
+	};
+
+	// let togglePopUp = (popUp) => {
+	// 	console.log(popUps, "in togglePopUp, popUp:", popUp, popUps[popUp]);
+	// 	if (popUps[popUp] === "true") {
+	// 		console.log("value from true to false");
+	// 		setPopUps({ ...popUps, [popUp]: false });
+	// 	} else {
+	// 		console.log("value from false to true");
+	// 		setPopUps({ ...popUps, [popUp]: true });
+	// 	}
+	// };
+
 	return (
-		<div className="formMaster">
-			{/* <div className="vanilla2">
-				<Vanilla2 />
-			</div> */}
-			<div className="formbuilder">
-				<div className="components">
-					{formConfigs.map((formConfig = {}, i) => {
-						// updateMasterConfig(formConfig.config, formConfig.moduleKey);
-						return (
-							<FormWrapper
-								key={i}
-								updateFormData={updateFormData}
-								moduleConfig={formConfig}
-								formData={formData[formConfig.moduleKey]}
-							/>
-						);
-					})}
-				</div>
-				<div className="apply">
-					<button id="applyBtn" onClick={() => validator()}>
-						Apply
+		<div className="formBuilder">
+			<div className="formDescription">
+				<div className="formDescriptionHeader">
+					<h1>SDK Configuration</h1>{" "}
+					<button
+						className="toggleConfig RCB-btn-primary"
+						onClick={() => toggleConfig()}
+					>
+						Show Config
 					</button>
 				</div>
-				<div className="formjson">
-					<CodeMirror
-						value={JSON.stringify(formData, null, 2)}
-						theme={darculaInit({
-							settings: {
-								caret: "#c6c6c6",
-								fontFamily: "monospace",
-							},
-							styles: [{ tag: t.comment, color: "#6272a4" }],
+				{/* <p>
+						Use the below form to configure the Unbxd SDK features and click on
+						"Apply" button to apply those changes to the website visible on the
+						LHS. Clicking on "Publish" will generate a new URL to the site
+						containing these configurations.
+					</p> */}
+			</div>
+			<div className="formComponents" id="formComponents">
+				<div className="accordianWrapper">
+					<div className="accordian">
+						{formConfigs.map((formConfig = {}, i) => {
+							return (
+								<div className="formWrapper" key={i}>
+									<div className="accordianMeta" onClick={() => showContent(i)}>
+										<div className="accordianTitle">
+											<h1 className="moduleName">{formConfig.moduleName}</h1>
+											{/* <p className="moduleDesc">{moduleDesc}</p> */}
+										</div>
+										{selectedAcc == i ? (
+											<span className="accordianDrop up"></span>
+										) : (
+											<span className="accordianDrop down"></span>
+										)}
+										{/* <span className="accordianDrop down"></span> */}
+										{/* <div className="accordianLink">
+												<a
+													className="moduleLink"
+													href={formConfig.docLink}
+													target="_blank"
+												>
+													Know More
+												</a>
+											</div> */}
+									</div>
+									{selectedAcc == i && (
+										<div className={"accordianContent"}>
+											<div className="accordianDesc">
+												The spell check feature provides spelling suggestions or
+												spell-checks for misspelled search queries.
+												<a
+													className="moduleLink"
+													href={formConfig.docLink}
+													target="_blank"
+												>
+													Click Here
+												</a>{" "}
+												to know more about Search
+											</div>
+											<FormWrapper
+												key={i}
+												updateFormData={updateFormData}
+												moduleConfig={formConfig}
+												formData={
+													formConfig.moduleKey
+														? formData[formConfig.moduleKey]
+														: formData
+												}
+											/>
+										</div>
+									)}
+								</div>
+							);
 						})}
-						placeholder="Insert code here..."
-						height="500px"
-						width="500px"
-						extensions={[javascript({ json: true })]}
-					/>
+					</div>
 				</div>
 			</div>
-
-			<br />
-			<br />
-
-			{/* <CodeMirror
-				value={validator}
-				theme={darculaInit({
-					settings: {
-						caret: "#c6c6c6",
-						fontFamily: "monospace",
-					},
-					styles: [{ tag: t.comment, color: "#6272a4" }],
-				})}
-				placeholder="Insert code here..."
-				height="500px"
-				width="500px"
-				extensions={[javascript({ json: true })]}
-				// onChange={(code) => updateFormData((code = code))}
-				// onChange={(code) => onCodeChange(name, code)}
-				// onChange={(code) => newFormData(JSON.parse(code))}
-			/> */}
+			<div className="btnSection">
+				<button
+					id="applyBtn"
+					onClick={() => validator()}
+					className="RCB-btn-secondary"
+					// disabled={true}
+				>
+					Apply
+				</button>
+				<button
+					id="submitBtn"
+					// type="submit"
+					className="RCB-btn-primary"
+					// disabled={true}
+					onClick={() => setPopUps({ ...popUps, confirm: true })}
+					// onClick={() => togglePopUp("confirm")}
+				>
+					Publish
+				</button>
+			</div>
+			<div className="formjson hidden" id="formjson">
+				<CodeMirror
+					value={JSON.stringify(formData, null, 2)}
+					theme={darculaInit({
+						settings: {
+							caret: "#c6c6c6",
+							fontFamily: "monospace",
+						},
+						styles: [{ tag: t.comment, color: "#6272a4" }],
+					})}
+					placeholder="Insert code here..."
+					height="600px"
+					width="500px"
+					extensions={[javascript({ json: true })]}
+					// onChange={(code) => changeFormData("json", code)}
+				/>
+			</div>
 		</div>
+		// <ConfirmPopUp
+		// 	trigger={popUps.confirm}
+		// 	setPopUps={setPopUps}
+		// 	popUps={popUps}
+		// />
 	);
 };
 

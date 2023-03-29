@@ -1,6 +1,6 @@
 {
 	"moduleName": "Search Box",
-	"moduleKey": "searchBox",
+	"moduleKey": null,
 	"moduleDesc": "",
 	"docLink": "https://unbxd.github.io/search-JS-library/docs/configurations/SearchBar.html",
 	"config": [

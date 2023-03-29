@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Form } from "unbxd-react-components";
 import ConfigWrapper from "./ConfigWrapper";
+import { getConfig } from "../utils/getConfig";
 
 const FormWrapper = (props = {}) => {
+	const DEBOUNCE_DELAY = 400;
+
 	const {
 		moduleConfig: {
 			config = [],
@@ -26,38 +29,39 @@ const FormWrapper = (props = {}) => {
 	};
 
 	const onChange = (obj = {}) => {
-		let objData = obj.data;
-		if (objData) {
-			for (let configEl of config) {
-				let options = configEl.options;
-				const dataType = configEl.dataType;
-				if (options) {
-					let name = configEl.name;
-					let selectedVal = objData[name];
-					if (selectedVal && dataType === "string") {
-						selectedVal = selectedVal.value;
-					} else if (selectedVal && dataType === "boolean") {
-						for (let option of options) {
-							if (option.id === parseInt(selectedVal)) {
-								selectedVal = option.value;
+		let objData = obj.data || {};
+		try {
+			for (let key in objData) {
+				if (objData[key] !== formData[key]) {
+					const config = getConfig(moduleKey, key);
+					if (config !== -1 && config.options) {
+						let { options, dataType, name } = config;
+						let selectedVal = "";
+						if (dataType === "string") {
+							selectedVal = objData[name].value;
+						} else if (dataType === "boolean") {
+							for (let option of options) {
+								if (option.id === parseInt(objData[name])) {
+									selectedVal = option.value;
+								}
 							}
 						}
+						objData = { ...objData, [name]: selectedVal };
 					}
-					objData = { ...objData, [name]: selectedVal };
 				}
 			}
+		} catch (err) {
+			// console.log("error:", objData, err);
+		}
 
-			// handle obj.errors later on
-			if (objData) {
-				updateFormData(objData, moduleKey);
-			}
+		// handle obj.errors later on
+		if (objData) {
+			updateFormData(objData, moduleKey);
 		}
 	};
 
 	const onCodeChange = (field, code) => {
-		// if (code) {
 		updateFormData({ [field]: code }, moduleKey);
-		// }
 	};
 
 	const delayChange = debounce(function (element, code) {
@@ -66,18 +70,14 @@ const FormWrapper = (props = {}) => {
 		} else {
 			onCodeChange(element, code);
 		}
-	}, 1000);
+	}, DEBOUNCE_DELAY);
 
 	return (
 		<Form onChange={delayChange}>
-			<h1 className="moduleName">{moduleName}</h1>
-			<p className="moduleDesc">{moduleDesc}</p>
-			<a className="moduleLink" href={docLink} target="_blank">
-				Read more about {moduleName} here
-			</a>
 			{config.map((conf, index) => {
 				return (
 					<ConfigWrapper
+						moduleKey={moduleKey}
 						formData={formData}
 						key={index}
 						docLink={docLink}

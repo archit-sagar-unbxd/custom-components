@@ -1,19 +1,34 @@
 import { useEffect, useState } from "react";
 import React from "react";
 import useDeepCompareEffect from "use-deep-compare-effect";
-// import "../../../search-JS-library/src/index.js";
+import "../../../search-JS-library/src/index.js";
 
-export default function Vanilla2(props = {}) {
-	const { validatedConfig = {} } = props;
-	// console.log("outside, validatedConfig:", validatedConfig);
+export default function Vanilla2(props) {
+	const { validatedConfig } = props;
+	console.log("outside, validatedConfig:", validatedConfig);
 	// const [refreshCount, setRefreshCount] = useState(0)
 	useEffect(() => {
-		if (Object.keys(validatedConfig).length) {
-			console.log("---------------------------");
-			console.log("validatedConfig", validatedConfig);
-			console.log("---------------------------");
-			window.unbxdSearch = new window.UnbxdSearch(validatedConfig);
-		} else {
+		// (function () {
+		//     var UnbxdSiteName = "demo-unbxd700181503576558";
+		//     var ubx = document.createElement("script");
+		//     ubx.type = "text/javascript";
+		//     ubx.async = true;
+		//     ubx.src = "//d21gpk1vhmjuf5.cloudfront.net/unbxdAnalytics.js";
+		//     (
+		//         document.getElementsByTagName("head")[ 0 ] ||
+		//         document.getElementsByTagName("body")[ 0 ]
+		//     ).appendChild(ubx);
+		// })();
+
+		console.log("validatedConfig:", validatedConfig);
+		if (true) {
+			// window.unbxdSearch = null;
+			// if (Object.keys(validatedConfig).length) {
+			// 	window.unbxdSearch = new window.UnbxdSearch({ ...validatedConfig });
+			// } else {
+			// window.unbxdSearch = new window.UnbxdSearch({
+			// 	...window.unbxdSearch.options,
+			// });
 			window.unbxdSearch = new window.UnbxdSearch({
 				siteKey: "demo-unbxd700181503576558",
 				apiKey: "fb853e3332f2645fac9d71dc63e09ec1",
@@ -82,8 +97,13 @@ export default function Vanilla2(props = {}) {
 					},
 				},
 			});
+			// }
+
+			// window.unbxdSearch.updateConfig({
+
+			// });
 		}
-	});
+	}, []);
 
 	// useDeepCompareEffect(() => {
 	// 	console.log("applied config");

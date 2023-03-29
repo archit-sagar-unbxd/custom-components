@@ -10,12 +10,12 @@
 				{
 					"id": 1,
 					"name": "true",
-					"value": true
+					"value": "true"
 				},
 				{
 					"id": 2,
 					"name": "false",
-					"value": false
+					"value": "false"
 				}
 			]
 		},
@@ -26,12 +26,12 @@
 				{
 					"id": 1,
 					"name": "true",
-					"value": true
+					"value": "true"
 				},
 				{
 					"id": 2,
 					"name": "false",
-					"value": false
+					"value": "false"
 				}
 			]
 		},
@@ -42,12 +42,12 @@
 				{
 					"id": 1,
 					"name": "true",
-					"value": true
+					"value": "true"
 				},
 				{
 					"id": 2,
 					"name": "false",
-					"value": false
+					"value": "false"
 				}
 			]
 		},
@@ -66,12 +66,12 @@
 				{
 					"id": 1,
 					"name": "true",
-					"value": true
+					"value": "true"
 				},
 				{
 					"id": 2,
 					"name": "false",
-					"value": false
+					"value": "false"
 				}
 			]
 		},

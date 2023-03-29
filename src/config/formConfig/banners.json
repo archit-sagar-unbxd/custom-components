@@ -11,12 +11,12 @@
 				{
 					"id": 1,
 					"name": "True",
-					"value": true
+					"value": "true"
 				},
 				{
 					"id": 2,
 					"name": "False",
-					"value": false
+					"value": "false"
 				}
 			]
 		},
@@ -30,27 +30,11 @@
 		},
 		{
 			"name": "tagname",
-			"dataType": "string",
-			"options": [
-				{
-					"id": 1,
-					"name": "True",
-					"value": true
-				},
-				{
-					"id": 2,
-					"name": "False",
-					"value": false
-				}
-			]
+			"dataType": "string"
 		},
 		{
 			"name": "htmlattributes",
 			"dataType": "object"
-		},
-		{
-			"name": "attributes",
-			"dataType": "array"
 		}
 	]
 }
