@@ -51,7 +51,7 @@ const ConfigWrapper = (props = {}) => {
 					/>
 					<CodeMirror
 						className="codeMirrorComponent"
-						value={JSON.parse(JSON.stringify(formData[name], null, 2))}
+						value={JSON.parse(JSON.stringify(formData[name], null, 4))}
 						// theme={darculaInit({
 						// 	settings: {
 						// 		caret: "#c6c6c6",
@@ -70,9 +70,8 @@ const ConfigWrapper = (props = {}) => {
 			);
 
 		case "boolean": {
-
 			let defaultVal;
-			try{
+			try {
 				const config = getConfig(moduleKey, name);
 				let options = config.options;
 				for (let option of options) {
@@ -81,7 +80,7 @@ const ConfigWrapper = (props = {}) => {
 						break;
 					}
 				}
-			}catch(err){}
+			} catch (err) {}
 
 			return (
 				<div className="wrapper">
@@ -94,7 +93,7 @@ const ConfigWrapper = (props = {}) => {
 					<CustomRadio
 						name={name}
 						appearance="block"
-						defaultValue={defaultVal?defaultVal.id:null}
+						defaultValue={defaultVal ? defaultVal.id : null}
 						options={options}
 					/>
 				</div>

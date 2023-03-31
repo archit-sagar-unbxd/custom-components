@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import FormWrapper from "./FormWrapper";
-import ConfirmPopUp from "./popupComponents/confirm";
 
 import authConfig from "../config/formConfig/authentication.json";
 import searchBoxConfig from "../config/formConfig/searchBox.json";
@@ -24,15 +23,19 @@ import { tags as t } from "@lezer/highlight";
 import { javascript } from "@codemirror/lang-javascript";
 
 import defaultConfig from "../inputJson/dummyMadrasLink.json";
+import { Button, Modal } from "unbxd-react-components";
 // import defaultConfig from "../inputJson/empty.json";
 
 const FormBuilder = (props = {}) => {
-	const { setValidatedConfig } = props;
+	const { viewConfigTab } = props;
 	let masterConfig = {};
 	let validatedData = {};
-	const [popUps, setPopUps] = useState({ confirm: false });
 	const [formData, setFormData] = useState(defaultConfig);
 	const [selectedAcc, setSelectedAcc] = useState(null);
+	const confirmModalRef = useRef();
+
+	let [publishPopUp, setPublishPopUp] = useState(false);
+	let [publishStatus, setPublishStatus] = useState(false);
 
 	const formConfigs = [
 		authConfig,
@@ -226,28 +229,27 @@ const FormBuilder = (props = {}) => {
 		formConfig.classList.toggle("hidden");
 	};
 
-	// let togglePopUp = (popUp) => {
-	// 	console.log(popUps, "in togglePopUp, popUp:", popUp, popUps[popUp]);
-	// 	if (popUps[popUp] === "true") {
-	// 		console.log("value from true to false");
-	// 		setPopUps({ ...popUps, [popUp]: false });
-	// 	} else {
-	// 		console.log("value from false to true");
-	// 		setPopUps({ ...popUps, [popUp]: true });
-	// 	}
-	// };
+	const handlePublisStatus = () => {
+		setPublishPopUp(false);
+		setPublishStatus(true);
+	};
+
+	const handlePublish = () => {
+		setPublishPopUp(true);
+		setTimeout(handlePublisStatus, 2000);
+	};
 
 	return (
-		<div className="formBuilder">
+		<div
+			className="formBuilder"
+			style={viewConfigTab ? { display: "inline-block" } : { display: "none" }}
+		>
 			<div className="formDescription">
 				<div className="formDescriptionHeader">
 					<h1>SDK Configuration</h1>{" "}
-					<button
-						className="toggleConfig RCB-btn-primary"
-						onClick={() => toggleConfig()}
-					>
+					<Button appearance="link" onClick={() => toggleConfig()}>
 						Show Config
-					</button>
+					</Button>
 				</div>
 				{/* <p>
 						Use the below form to configure the Unbxd SDK features and click on
@@ -267,27 +269,23 @@ const FormBuilder = (props = {}) => {
 											<h1 className="moduleName">{formConfig.moduleName}</h1>
 											{/* <p className="moduleDesc">{moduleDesc}</p> */}
 										</div>
-										{selectedAcc == i ? (
-											<span className="accordianDrop up"></span>
-										) : (
-											<span className="accordianDrop down"></span>
-										)}
-										{/* <span className="accordianDrop down"></span> */}
-										{/* <div className="accordianLink">
-												<a
-													className="moduleLink"
-													href={formConfig.docLink}
-													target="_blank"
-												>
-													Know More
-												</a>
-											</div> */}
+										<span
+											className={`accordianDrop ${
+												selectedAcc == i ? "up" : "down"
+											}`}
+										></span>
+										{/* // {selectedAcc == i ? (
+										// 	<span className="accordianDrop up"></span>
+										// ) : (
+										// 	<span className="accordianDrop down"></span>
+										// )} */}
 									</div>
 									{selectedAcc == i && (
 										<div className={"accordianContent"}>
 											<div className="accordianDesc">
-												The spell check feature provides spelling suggestions or
-												spell-checks for misspelled search queries.
+												{/* The spell check feature provides spelling suggestions or
+												spell-checks for misspelled search queries. */}
+												{formConfig.moduleDesc}
 												<a
 													className="moduleLink"
 													href={formConfig.docLink}
@@ -325,19 +323,19 @@ const FormBuilder = (props = {}) => {
 					Apply
 				</button>
 				<button
-					id="submitBtn"
-					// type="submit"
+					id="publishBtn"
 					className="RCB-btn-primary"
 					// disabled={true}
-					onClick={() => setPopUps({ ...popUps, confirm: true })}
-					// onClick={() => togglePopUp("confirm")}
+					onClick={() => {
+						confirmModalRef.current.showModal();
+					}}
 				>
 					Publish
 				</button>
 			</div>
 			<div className="formjson hidden" id="formjson">
 				<CodeMirror
-					value={JSON.stringify(formData, null, 2)}
+					value={JSON.stringify(formData, null, 4)}
 					theme={darculaInit({
 						settings: {
 							caret: "#c6c6c6",
@@ -349,15 +347,90 @@ const FormBuilder = (props = {}) => {
 					height="600px"
 					width="500px"
 					extensions={[javascript({ json: true })]}
-					// onChange={(code) => changeFormData("json", code)}
 				/>
 			</div>
+			<div className="confirm-modal">
+				<Modal
+					// title={
+					// 	<div className="modal-title">
+					// 		<h3>Confirm</h3>
+					// 		<div
+					// 			className="cancel"
+					// 			onClick={() => {
+					// 				setPublishPopUp(false);
+					// 				setPublishStatus(false);
+					// 				confirmModalRef.current.hideModal();
+					// 			}}
+					// 		></div>
+					// 	</div>
+					// }
+					title="Confirm"
+					ref={confirmModalRef}
+					showClose={true}
+				>
+					{!publishPopUp && !publishStatus && (
+						<div>
+							<div className="confirm-modal-body">
+								Are you sure you want to publish these configurations?
+							</div>
+							<div className="modal-footer">
+								<Button
+									appearance="link"
+									className="cancel"
+									onClick={() => {
+										setPublishPopUp(false);
+										confirmModalRef.current.hideModal();
+									}}
+								>
+									Cancel
+								</Button>
+								<Button
+									appearance="primary"
+									className="publish-configs"
+									onClick={() => {
+										handlePublish();
+									}}
+								>
+									Publish
+								</Button>
+							</div>
+						</div>
+					)}
+					{publishPopUp && (
+						<div>
+							<div className="confirm-modal-body">
+								Publishing...
+								<div>
+									<img src="loading.gif" alt="Loading"></img>
+								</div>
+							</div>
+						</div>
+					)}
+					{publishStatus && (
+						<div>
+							<div>
+								<div className="confirm-modal-body">
+									Your configurations have been published to the below link:
+									<input readOnly value="www.google.com" />
+								</div>
+								<div className="modal-footer">
+									<Button
+										appearance="link"
+										className="cancel"
+										onClick={() => {
+											setPublishStatus(false);
+											confirmModalRef.current.hideModal();
+										}}
+									>
+										Close
+									</Button>
+								</div>
+							</div>
+						</div>
+					)}
+				</Modal>
+			</div>
 		</div>
-		// <ConfirmPopUp
-		// 	trigger={popUps.confirm}
-		// 	setPopUps={setPopUps}
-		// 	popUps={popUps}
-		// />
 	);
 };
 

@@ -1,7 +1,8 @@
 @import "./form.scss";
 
 body {
-    padding: 15px;
+    // padding: 15px;
+    margin: 0;
     font-family: system-ui,
         -apple-system,
         blinkmacsystemfont,
@@ -13,7 +14,7 @@ body {
 }
 
 .vanilla2 {
-    width: 65%;
+    width: 70%;
     height: 700px;
     overflow: auto;
     display: inline-block;
@@ -21,9 +22,9 @@ body {
 
 .formMaster {
     display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-start;
 }
 
 .formDescription {
@@ -33,14 +34,13 @@ body {
 }
 
 .formBuilder {
-    width: 35%;
-    // height: 100vh;
-    display: inline-block;
+    width: 30%;
     position: relative;
-        padding: 25px;
-            border-left: 1px solid #ccc;
-                background: white;
-                    box-shadow: 0px 0px 4px 1px #ccc;
+    margin-top: 1px;
+    padding: 25px;
+    border-left: 1px solid #ccc;
+    background: white;
+    box-shadow: 0px 0px 4px 0px #ccc;
 
     .formDescription {
         display: block;
@@ -51,16 +51,15 @@ body {
             width: 100%;
             margin: 0;
             justify-content: space-between;
-
-            .toggleConfig {
-                height: 40px;
-                justify-content: center;
+            
+            h1 {
+                margin-bottom: 0;
             }
         }
     }
 
     .formjson {
-        height: 600px;
+        height: 535px;
         overflow: auto;
         margin-bottom: 70px;
         margin-top: 20px;
@@ -71,10 +70,10 @@ body {
     }
 
     .formComponents {
-        height: 600px;
+        height: 545px;
         overflow: auto;
         margin-top: 20px;
-        margin-bottom: 70px;
+        margin-bottom: 60px;
 
         .accordian {
             display: block;
@@ -301,12 +300,160 @@ body {
 
     .footer{
         display: flex;
+        // width: 100%;
         flex-wrap: nowrap;
+        // justify-content: space-evenly;
         justify-content: flex-end;
         align-items: center;
 
         button {
             margin-left: 10px;
         }
+    }
+}
+
+.dashboardWrapper {
+    display: block;
+
+    .dashHead {
+        width: 100%;
+        padding: 0;
+        // position: relative;
+        background-color: #fff;
+        box-shadow: 0px 0px 4px 0px #ccc;
+        display: block;
+        position: fixed;
+            z-index: 100;
+    }
+}
+
+.RCB {
+    &-modal-body {
+        padding: 0;
+        width: 40%;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    &-modal-header {
+        padding: 20px 30px;
+        background-color: $modal-header-bg;
+        box-shadow: 0 2px 4px 0 rgba(9, 13, 15, 0.14);
+        margin-bottom: 0;
+        position: relative;
+    }
+
+    &-modal-content {
+        padding: 20px 30px;
+        background-color: $modal-body-bg;
+        height: 100%;
+    }
+
+    &-modal-close {
+        &:before {
+            @include cross-blue;
+            content: " ";
+            // @extend .close-icon-light;
+        }
+    }
+}
+
+.modal-footer {
+    padding: 13px 24px;
+    margin: 20px -30px -20px;
+    border: 1px solid #D2DDE4;
+    border-radius: 0 0 10px 10px;
+    background-color: #F7F9FB;
+    box-shadow: 0 -2px 4px 0 rgba(9, 13, 15, 0.14);
+    text-align: right;
+
+    .RCB-btn {
+        margin-right: 14px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+.info-modal {
+    .tick-container {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #B5F2E4;
+        margin: auto;
+        margin-bottom: 20px;
+    }
+
+    .msg-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+
+    .success-tick {
+        margin-bottom: 30px;
+    }
+
+    .RCB-modal-header {
+        box-shadow: unset;
+        background-color: #F7F9FB;
+    }
+
+    .RCB-modal-body {
+        width: 50%;
+    }
+
+    .RCB-modal-content {
+        padding: 0 60px 90px;
+    }
+
+    .mask {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+.confirm-modal-body {
+    display: block;
+
+    div img{
+        width: 100%;
+        height: 50px;
+    }
+
+    input {
+        display: flex;
+    }
+}
+
+.modal-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    h3 {
+        margin: 0;
+    }
+
+    .cancel {
+        @include cross-blue;
+
+        &:hover{
+            cursor: pointer;
+        }
+    }
+}
+
+.userConfigs {
+    width: 30%;
+
+    .viewConfig {
+        padding: 10px;
     }
 }
