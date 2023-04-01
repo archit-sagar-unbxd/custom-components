@@ -1,43 +1,41 @@
 import React, { useState } from "react";
 import { Input, Button } from "unbxd-react-components";
 
-import "../../../public/styles/components/dashboardHeader/header.scss";
+import "../../../public/styles/components/dashboard/header.scss";
 
 const DashboardHeader = (props) => {
-	const { toggleConfigTab, viewConfigTab } = props;
+	const { toggleConfigTab, viewConfigTab, viewConfigOption } = props;
 	return (
 		<div className="dashHead">
-			<div class="UNX-header">
-				<div class="UNX-header-inner">
-					<div class="UNX-logo">
-						<a href="/" class="UNX-header-logo">
-							<span class="UNX-square"></span>
+			<div className="UNX-header">
+				<div className="UNX-header-inner">
+					<div className="UNX-logo">
+						<a href="/" className="UNX-header-logo">
+							<span className="UNX-square"></span>
 						</a>
 					</div>
-					<nav class="UNX-nav">
+					<nav className="UNX-nav">
 						<a href="javascript:void(0)">Home</a>
 						<a href="javascript:void(0)">Clothing</a>
 						<a href="javascript:void(0)">Electronics</a>
 						<a href="javascript:void(0)">Health & Beauty</a>
 						<a href="javascript:void(0)">Watches</a>
 					</nav>
-					<div class="UNX-right-header">
-						<div id="autoSuggestInput" class="UNX-input-wrapper">
+					<div className="UNX-right-header">
+						<div id="autoSuggestInput" className="UNX-input-wrapper">
 							<input
 								id="unbxdInput"
 								placeholder="Search here..."
-								class="UNX-input"
+								className="UNX-input"
+								autoComplete="off"
 							/>
 							<button
 								id="searchBtn"
-								class="fa fa-search UNX-search-btn"
+								className="fa fa-search UNX-search-btn"
 							></button>
-							<div class="UNX-pd-parent">
-								<div class="UNX-preview-debugger UNX-query"></div>
+							<div className="UNX-pd-parent">
+								<div className="UNX-preview-debugger UNX-query"></div>
 							</div>
-						</div>
-						<div class="UNX-shopping-cart">
-							<button class="UNX-icons UNX-naked-btn UNX-shopping-cart-btn"></button>
 						</div>
 						<div className="userConfigs">
 							<a
@@ -46,9 +44,14 @@ const DashboardHeader = (props) => {
 							>
 								View Documentation
 							</a>
-							<div className="viewConfig" onClick={() => toggleConfigTab()}>
+							{viewConfigOption && (
+								<div className="viewConfig" onClick={() => toggleConfigTab()}>
+									{viewConfigTab ? "Hide Config" : "View Config"}
+								</div>
+							)}
+							{/* <div className="viewConfig" onClick={() => toggleConfigTab()}>
 								{viewConfigTab ? "Hide Config" : "View Config"}
-							</div>
+							</div> */}
 						</div>
 					</div>
 				</div>
