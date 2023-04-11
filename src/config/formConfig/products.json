@@ -12,12 +12,12 @@
 				{
 					"id": 1,
 					"name": "SEARCH",
-					"value": "search"
+					"value": "SEARCH"
 				},
 				{
 					"id": 2,
 					"name": "CATEGORY",
-					"value": "category"
+					"value": "CATEGORY"
 				}
 			]
 		},

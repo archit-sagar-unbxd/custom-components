@@ -151,13 +151,13 @@
 						`<div className="UNX-images-block">`,
 						// templateUtils.favouriteButton(uniqueId),
 						`${/* DELETE_STARTS */ ""}
-                                      ${debuggerUI}
-                                      ${/* DELETE_ENDS */ ""}`,
+                        ${debuggerUI}
+                        ${/* DELETE_ENDS */ ""}`,
 						imagesUI,
 						vImages,
 						`<div className="index-badge">
                 ${idx}
-              </div>`,
+            </div>`,
 						`<div className=${pins && pins[uniqueId] && "pin-box"}>`,
 						`<div className=${pins && pins[uniqueId] && "pin-icon"}>`,
 						`</div>`,
@@ -232,6 +232,7 @@
 			variants: templateUtils.getVariantsWithFields(),
 			onEvent: function (instance, type, state) {
 				if (type === "AFTER_API_CALL") {
+					console.log("AFTER_API_CALL");
 					window.postMessage(
 						{
 							id: "debugPreview",
@@ -241,6 +242,7 @@
 					);
 				}
 				if (type === "AFTER_RENDER") {
+					console.log("AFTER_RENDER");
 					templateUtils.scrollToTop();
 					new window.Choices(document.getElementById("unbxdSorter"), {
 						searchEnabled: false,

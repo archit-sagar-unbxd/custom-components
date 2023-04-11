@@ -1,126 +1,46 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 // import "../public/unbxdStyles.css";
+// import UnbxdSearch from  '@unbxd-ui/vanilla-search-library';
+import UnbxdSearch from "../../../../../search-JS-library/src/index";
+import useDeepCompareEffect from "use-deep-compare-effect";
 
 export default function Vanilla2(props) {
-	let { validatedConfig } = props;
-	console.log("validatedConfig in vanilla2:", validatedConfig);
-	console.log("swatches:", validatedConfig.swatches);
+	let { validatedConfig, filename } = props;
 	useEffect(() => {
-		// (function () {
-		//     var UnbxdSiteName = "demo-unbxd700181503576558";
-		//     var ubx = document.createElement("script");
-		//     ubx.type = "text/javascript";
-		//     ubx.async = true;
-		//     ubx.src = "//d21gpk1vhmjuf5.cloudfront.net/unbxdAnalytics.js";
-		//     (
-		//         document.getElementsByTagName("head")[ 0 ] ||
-		//         document.getElementsByTagName("body")[ 0 ]
-		//     ).appendChild(ubx);
-		// })();
+		// window.unbxdSearch.resetAll();
+		// window.unbxdSearch = null;
 		if (Object.keys(validatedConfig).length) {
-			if (window.UnbxdSearch) {
-				window.unbxdSearch = new window.UnbxdSearch({
+			if (UnbxdSearch) {
+				window.unbxdSearch = new UnbxdSearch({
 					siteKey: validatedConfig.siteKey,
 					apiKey: validatedConfig.apiKey,
 					hashMode: false,
 					updateUrls: true,
-					// searchTrigger: "click",
-					// products: {
-					// 	productType: "SEARCH",
-					// },
 					searchBoxEl: validatedConfig.searchBoxEl,
 					searchTrigger: "click",
 					searchButtonEl: validatedConfig.searchButtonEl,
-					products: {
-						el: document.getElementById("searchResultsWrapper"),
-						productType: "SEARCH",
-					},
-					spellCheck: validatedConfig.spellCheck,
-					noResults: validatedConfig.noResults,
-					facet: validatedConfig.facet,
-					pagination: validatedConfig.pagination,
-					breadcrumb: validatedConfig.breadcrumb,
-					pagesize: validatedConfig.pagesize,
-					sort: validatedConfig.sort,
-					loader: validatedConfig.loader,
-					productView: validatedConfig.productView,
-					banner: validatedConfig.banner,
-					swatches: validatedConfig.swatches,
-					// siteKey: "demo-unbxd700181503576558",
-					// apiKey: "fb853e3332f2645fac9d71dc63e09ec1",
-					// hashMode: false,
-					// updateUrls: true,
-					// // searchTrigger: "click",
-					// // products: {
-					// // 	productType: "SEARCH",
-					// // },
-					// searchBoxEl: document.getElementById("unbxdInput"),
-					// searchTrigger: "click",
-					// searchButtonEl: document.getElementById("searchBtn"),
 					// products: {
 					// 	el: document.getElementById("searchResultsWrapper"),
 					// 	productType: "SEARCH",
 					// },
-					// spellCheck: {
-					// 	enabled: true,
-					// 	el: document.getElementById("didYouMeanWrapper"),
-					// },
-					// noResults: {
-					// 	el: document.getElementById("noResultWrapper"),
-					// },
-					// facet: {
-					// 	facetsEl: document.getElementById("facetsWrapper"),
-					// 	selectedFacetsEl: document.getElementById("selectedFacetWrapper"),
-					// },
-					// pagination: {
-					// 	el: document.querySelectorAll(".unxPagination"),
-					// 	type: "FIXED_PAGINATION",
-					// 	pageLimit: 4,
-					// },
-					// breadcrumb: {
-					// 	el: document.getElementById("breadcrumpContainer"),
-					// },
-					// pagesize: {
-					// 	el: document.getElementById("changeNoOfProducts"),
-					// },
-
-					// sort: {
-					// 	el: document.getElementById("sortWrapper"),
-					// 	options: [
-					// 		{
-					// 			value: "sortPrice desc",
-					// 			text: "Price High to Low",
-					// 		},
-					// 		// {
-					// 		// 	value: "sortPrice asc",
-					// 		// 	text: " Price Low to High",
-					// 		// },
-					// 	],
-					// },
-					// loader: {
-					// 	el: document.getElementById("loaderEl"),
-					// },
-					// productView: {
-					// 	el: document.getElementById("productViewTypeContainer"),
-					// 	viewTypes: "GRID",
-					// },
-					// banner: {
-					// 	el: document.getElementById("bannerContainer"),
-					// 	count: 1,
-					// },
-					// swatches: {
-					// 	enabled: true,
-					// 	attributesMap: {
-					// 		swatchList: "color",
-					// 		swatchImgs: "unbxd_color_mapping",
-					// 		swatchColors: "color",
-					// 	},
-					// },
+					products: validatedConfig.products,
+					facet: validatedConfig.facet,
+					pagesize: validatedConfig.pagesize,
+					sort: validatedConfig.sort,
+					productView: validatedConfig.productView,
+					spellCheck: validatedConfig.spellCheck,
+					loader: validatedConfig.loader,
+					swatches: validatedConfig.swatches,
+					noResults: validatedConfig.noResults,
+					pagination: validatedConfig.pagination,
+					// breadcrumb: validatedConfig.breadcrumb,
+					// banner: validatedConfig.banner,
 				});
+				console.log("Applied changes");
 			}
 		} else {
-			if (window.UnbxdSearch) {
-				window.unbxdSearch = new window.UnbxdSearch({
+			if (UnbxdSearch) {
+				window.unbxdSearch = new UnbxdSearch({
 					siteKey: "demo-unbxd700181503576558",
 					apiKey: "fb853e3332f2645fac9d71dc63e09ec1",
 					hashMode: false,
@@ -148,7 +68,7 @@ export default function Vanilla2(props) {
 						selectedFacetsEl: document.getElementById("selectedFacetWrapper"),
 					},
 					pagination: {
-						el: document.querySelectorAll(".unxPagination"),
+						el: document.querySelector(".unxPagination"),
 						type: "FIXED_PAGINATION",
 						pageLimit: 4,
 					},
@@ -260,6 +180,135 @@ export default function Vanilla2(props) {
 			}
 		}
 	});
+	// useDeepCompareEffect(() => {
+	// 	// window.unbxdSearch.resetAll();
+	// 	// window.unbxdSearch = null;
+	// 	if (Object.keys(validatedConfig).length) {
+	// 		if (window.UnbxdSearch) {
+	// 			window.unbxdSearch = new window.UnbxdSearch({
+	// 				siteKey: validatedConfig.siteKey,
+	// 				apiKey: validatedConfig.apiKey,
+	// 				hashMode: false,
+	// 				updateUrls: true,
+	// 				extraParams: {
+	// 					stats: "price",
+	// 				},
+	// 				// searchTrigger: "click",
+	// 				products: {
+	// 					productType: "SEARCH",
+	// 				},
+	// 				searchBoxEl: validatedConfig.searchBoxEl,
+	// 				searchButtonEl: validatedConfig.searchButtonEl,
+	// 				// products: validatedConfig.products,
+	// 				spellCheck: validatedConfig.spellCheck,
+	// 				noResults: validatedConfig.noResults,
+	// 				facet: validatedConfig.facet,
+	// 				pagination: validatedConfig.pagination,
+	// 				breadcrumb: validatedConfig.breadcrumb,
+	// 				pagesize: validatedConfig.pagesize,
+	// 				sort: validatedConfig.sort,
+	// 				loader: validatedConfig.loader,
+	// 				productView: validatedConfig.productView,
+	// 				banner: validatedConfig.banner,
+	// 				swatches: validatedConfig.swatches,
+	// 			});
+	// 			console.log("Applied changes");
+	// 		}
+	// 	}
+	// }, [validatedConfig]);
+	useEffect(() => {
+		// window.unbxdSearch = null;
+
+		if (window.UnbxdSearch) {
+			window.unbxdSearch = new window.UnbxdSearch({
+				siteKey: "demo-unbxd700181503576558",
+				apiKey: "fb853e3332f2645fac9d71dc63e09ec1",
+				// siteKey: "ss-unbxd-betta-pre-prod35741675334517",
+				// apiKey: "b1b5f033416fbf18f301aee3dab41934",
+				hashMode: false,
+				updateUrls: true,
+				extraParams: {
+					stats: "price",
+				},
+				// searchTrigger: "click",
+				products: {
+					productType: "SEARCH",
+				},
+				searchBoxEl: document.getElementById("unbxdInput"),
+				searchTrigger: "click",
+				searchButtonEl: document.getElementById("searchBtn"),
+				products: {
+					el: document.getElementById("searchResultsWrapper"),
+					productType: "SEARCH",
+				},
+				spellCheck: {
+					enabled: true,
+					el: document.getElementById("didYouMeanWrapper"),
+				},
+				noResults: {
+					el: document.getElementById("noResultWrapper"),
+				},
+				facet: {
+					facetsEl: document.getElementById("facetsWrapper"),
+					selectedFacetsEl: document.getElementById("selectedFacetWrapper"),
+				},
+				pagination: {
+					el: document.querySelectorAll(".unxPagination"),
+					type: "FIXED_PAGINATION",
+					pageLimit: 4,
+				},
+				breadcrumb: {
+					el: document.getElementById("breadcrumpContainer"),
+				},
+				pagesize: {
+					el: document.getElementById("changeNoOfProducts"),
+				},
+
+				sort: {
+					el: document.getElementById("sortWrapper"),
+					options: [
+						{
+							value: "sortPrice desc",
+							text: "Price High to Low",
+						},
+						{
+							value: "sortPrice asc",
+							text: " Price Low to High",
+						},
+					],
+				},
+				loader: {
+					el: document.getElementById("loaderEl"),
+				},
+				productView: {
+					el: document.getElementById("productViewTypeContainer"),
+					viewTypes: "GRID",
+				},
+				banner: {
+					el: document.getElementById("bannerContainer"),
+					count: 1,
+				},
+				swatches: {
+					enabled: true,
+					attributesMap: {
+						swatchList: "color",
+						swatchImgs: "unbxd_color_mapping",
+						swatchColors: "color",
+					},
+				},
+			});
+		}
+	}, []);
+
+	const [htmlContent, setHtmlContent] = useState("");
+
+	useEffect(() => {
+		fetch(`/path/to/external/${filename}`)
+			.then((response) => response.text())
+			.then((html) => setHtmlContent(html))
+			.catch((error) => console.log(error));
+	}, []);
+
 	const createMarkup = function () {
 		return {
 			__html:
@@ -279,9 +328,6 @@ export default function Vanilla2(props) {
 				"<!-- Custom stylesheet for Unbxd default theme, update this if you want to change the look & feel -->" +
 				"<link rel='stylesheet' href='https://libraries.unbxdapi.com/search-sdk/v2.0.5/vanillaSearch.min.css'/>" +
 				"<link rel='stylesheet' type='text/css' href='unbxdStyles.css' />" +
-				// "<link rel='stylesheet' type='text/css' href='./unbxdAutosuggestStyles.css' />" +
-				// "<script type='text/javascript'>	{{CONFIG_SCRIPT}} </script>" +
-				// `<script type='text/javascript'>${{ CONFIG_SCRIPT }} </script>` +
 				"</head>" +
 				"<body class='{{langCSS}}'>" +
 				"<div class='search-preview'>" +
@@ -433,4 +479,5 @@ export default function Vanilla2(props) {
 			<div dangerouslySetInnerHTML={createMarkup()}></div>
 		</div>
 	);
+	// return <div dangerouslySetInnerHTML={{ __html: htmlContent }} />;
 }

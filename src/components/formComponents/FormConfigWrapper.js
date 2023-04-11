@@ -33,7 +33,9 @@ const FormConfigWrapper = (props = {}) => {
 					<CustomInput
 						type="number"
 						name={name}
-						defaultValue={parseInt(formData[name])}
+						defaultValue={
+							parseInt(formData[name]) ? parseInt(formData[name]) : ""
+						}
 					/>
 				</div>
 			);
@@ -51,14 +53,11 @@ const FormConfigWrapper = (props = {}) => {
 					/>
 					<CodeMirror
 						className="codeMirrorComponent"
-						value={JSON.parse(JSON.stringify(formData[name], null, 4))}
-						// theme={darculaInit({
-						// 	settings: {
-						// 		caret: "#c6c6c6",
-						// 		fontFamily: "monospace",
-						// 	},
-						// 	styles: [{ tag: t.comment, color: "#6272a4" }],
-						// })}
+						value={
+							formData[name]
+								? JSON.parse(JSON.stringify(formData[name], null, 4))
+								: ""
+						}
 						placeholder="Insert code here..."
 						height="200px"
 						width="100%"
@@ -115,19 +114,16 @@ const FormConfigWrapper = (props = {}) => {
 						<CustomInput
 							name={name}
 							type="text"
-							defaultValue={formData[name]}
+							defaultValue={formData[name] ? formData[name] : ""}
 							value={formData[name]}
 						/>
-						{/* <CustomInput name={name} value={formData[name]} /> */}
 					</div>
 				);
 			} else {
 				const config = getConfig(moduleKey, name);
 				let defaultVal;
-				// console.log(moduleKey, name, formData[name], config);
 				for (let option of config.options) {
 					if (option.value === formData[name]) {
-						// console.log(option, formData[name]);
 						defaultVal = option;
 						break;
 					}

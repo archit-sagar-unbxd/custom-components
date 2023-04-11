@@ -1,51 +1,33 @@
 import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import "unbxd-react-components/components/theme.css";
 import "unbxd-react-components/components/core.css";
+import "../public/styles/components/form/form.scss";
+import "../public/styles/components/vanilla2/vanilla2.scss";
 import "../public/styles/components/general.scss";
 // import "../public/styles/components/vanilla2.scss";
 
 import DashboardWrapper from "./components/dashboardComponents/DashboardWrapper";
+import Lander from "./components/landerComponents/Lander";
 
 const App = (props) => {
 	return (
 		<Routes>
 			<Route
+				exact
 				path="builder"
-				// element={<DashboardWrapper />}
-				element={<DashboardWrapper viewConfigOption={true} />}
-			/>
-			<Route
-				path="qa"
-				// path="builder/:qa"
-				// element={
-				// 	<div>
-				// 		<h1>You are in the builder1 page.</h1>
-				// 		<a
-				// 			href="/"
-				// 			style={{ textDecoration: "none", color: "cornflowerblue" }}
-				// 		>
-				// 			Click to go to the home page.
-				// 		</a>
-				// 	</div>
-				// }
-				element={<DashboardWrapper viewConfigOption={false} />}
-				// element={<DashboardWrapper />}
-			/>
-			<Route
-				path="/"
 				element={
-					<div>
-						<h1>You are in the home page.</h1>
-						<a
-							href="/builder"
-							style={{ textDecoration: "none", color: "cornflowerblue" }}
-						>
-							Click to go to the QA platform with default configurations.
-						</a>
-					</div>
+					<DashboardWrapper viewConfigOption={true} routePath="builder" />
 				}
+
+				// Component={<DashboardWrapper viewConfigOption={true} />}
 			/>
+			<Route
+				exact
+				path="qa"
+				element={<DashboardWrapper viewConfigOption={false} routePath="qa" />}
+			/>
+			<Route exact path="" element={<Lander />} />
 			{/* <Route path="/builder" element={<h1>Builder Page</h1>} /> */}
 		</Routes>
 	);

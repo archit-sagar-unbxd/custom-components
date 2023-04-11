@@ -4,7 +4,7 @@ import { Input, Button } from "unbxd-react-components";
 import "../../../public/styles/components/dashboard/header.scss";
 
 const DashboardHeader = (props) => {
-	const { toggleConfigTab, viewConfigTab, viewConfigOption } = props;
+	const { viewConfigOption } = props;
 	return (
 		<div className="dashHead">
 			<div className="UNX-header">
@@ -37,22 +37,16 @@ const DashboardHeader = (props) => {
 								<div className="UNX-preview-debugger UNX-query"></div>
 							</div>
 						</div>
-						<div className="userConfigs">
-							<a
-								href="https://unbxd.github.io/search-JS-library/"
-								target="_blank"
-							>
-								View Documentation
-							</a>
-							{viewConfigOption && (
-								<div className="viewConfig" onClick={() => toggleConfigTab()}>
-									{viewConfigTab ? "Hide Config" : "View Config"}
-								</div>
-							)}
-							{/* <div className="viewConfig" onClick={() => toggleConfigTab()}>
-								{viewConfigTab ? "Hide Config" : "View Config"}
-							</div> */}
-						</div>
+						{viewConfigOption && (
+							<div className="userConfigs">
+								<a
+									href="https://unbxd.github.io/search-JS-library/"
+									target="_blank"
+								>
+									View Documentation
+								</a>
+							</div>
+						)}
 					</div>
 				</div>
 			</div>
@@ -61,23 +55,3 @@ const DashboardHeader = (props) => {
 };
 
 export default DashboardHeader;
-
-// const DashboardHeader = (props) => {
-// 	const { toggleConfigTab, viewConfigTab } = props;
-// 	return (
-// 		<div className="dashHead">
-// 			<img src="./netcore-unbxd-logo.png" alt="Logo" />
-// 			<Input name="searchBar" />
-// 			<div className="userConfigs">
-// 				<a href="https://unbxd.github.io/search-JS-library/" target="_blank">
-// 					View Documentation
-// 				</a>
-// 				<div className="viewConfig" onClick={() => toggleConfigTab()}>
-// 					{viewConfigTab ? "Hide Config" : "View Config"}
-// 				</div>
-// 			</div>
-// 		</div>
-// 	);
-// };
-
-// export default DashboardHeader;

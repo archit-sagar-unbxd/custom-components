@@ -1,49 +1,53 @@
-import React, { useRef, useState } from "react";
-import Vanilla2 from "../vanilla2/Vanilla2";
-// import Vanilla2 from "../../../oldVanilla2b";
+import React, { useRef, useState, useEffect } from "react";
+import Vanilla2 from "../externalHTMLComponents/Vanilla2";
 import FormBuilder from "../formComponents/FormBuilder";
 
 const DashboardContent = (props) => {
-	// const confirmModalRef = useRef();
-	const { viewConfigTab, viewConfigOption } = props;
-	console.log("dashboard content:", viewConfigOption);
+	const { viewConfigOption } = props;
 
 	const [validatedConfig, setValidatedConfig] = useState({});
+	const [viewConfigTab, setViewConfigTab] = useState(true);
 
-	// const viewConfig = viewConfigOption && viewConfigTab ? true : false;
+	const hideConfigTab = () => {
+		setViewConfigTab(false);
+	};
+	const showConfigTab = () => {
+		setViewConfigTab(true);
+	};
 
-	// const showConfirmModal = () => {
-	// 	confirmModalRef.current.showConfirmModal();
-	// };
-	console.log(
-		"viewConfigTab:",
-		viewConfigTab,
-		"viewConfigOption:",
-		viewConfigOption
-	);
 	return (
 		<div className="formMaster">
+			{viewConfigOption && (
+				<FormBuilder
+					viewConfigTab={viewConfigTab}
+					setValidatedConfig={setValidatedConfig}
+					hideConfigTab={hideConfigTab}
+				/>
+			)}
 			<div
 				className="vanilla2"
 				style={
 					viewConfigOption
 						? viewConfigTab
-							? { width: "70%" }
+							? { width: "75%" }
 							: { width: "100%" }
 						: { width: "100%" }
 				}
-				// style={viewConfigTab ? { width: "70%" } : { width: "100%" }}
-				// style={{ width: { viewConfig } ? "70%" : "100%" }}
 			>
 				<Vanilla2 validatedConfig={validatedConfig} />
+				{/* <Vanilla2 validatedConfig={validatedConfig} filename="Vanilla2.html" /> */}
+				{viewConfigOption && (
+					<div
+						className="viewConfigTab"
+						style={viewConfigTab ? { display: "none" } : { display: "flex" }}
+						onClick={() => {
+							showConfigTab();
+						}}
+					>
+						<div className="showArrowRight"></div>
+					</div>
+				)}
 			</div>
-			{viewConfigOption && (
-				<FormBuilder
-					// showConfirmModal={showConfirmModal}
-					viewConfigTab={viewConfigTab}
-					setValidatedConfig={setValidatedConfig}
-				/>
-			)}
 		</div>
 	);
 };

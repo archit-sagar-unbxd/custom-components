@@ -3,8 +3,8 @@
 		"el": "document.getElementById(\"loaderEl\")",
 		"template": "function () { return `<div class=\"UNX-loader\">Loading search results....</div>` }"
 	},
-	"siteKey": "demo-unbxd700181503576558",
-	"apiKey": "fb853e3332f2645fac9d71dc63e09ec1",
+	"siteKey": "ss-unbxd-betta-pre-prod35741675334517",
+	"apiKey": "b1b5f033416fbf18f301aee3dab41934",
 	"searchBoxEl": "document.getElementById(\"unbxdInput\")",
 	"searchButtonEl": "document.getElementById(\"searchBtn\")",
 	"unbxdAnalytics": false,

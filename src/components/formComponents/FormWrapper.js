@@ -51,13 +51,16 @@ const FormWrapper = (props = {}) => {
 				}
 			}
 		} catch (err) {
-			// console.log("error:", objData, err);
+			console.log("error:", objData, err);
 		}
 
 		// handle obj.errors later on
 		if (objData) {
 			updateFormData(objData, moduleKey);
 		}
+		// if (obj.data) {
+		// 	updateFormData(obj.data, moduleKey);
+		// }
 	};
 
 	const onCodeChange = (field, code) => {
@@ -65,7 +68,7 @@ const FormWrapper = (props = {}) => {
 	};
 
 	const delayChange = debounce(function (element, code) {
-		if (!code) {
+		if (code === undefined) {
 			onChange(element);
 		} else {
 			onCodeChange(element, code);

@@ -6,7 +6,8 @@
 	"config": [
 		{
 			"name": "facetsEl",
-			"dataType": "element"
+			"dataType": "element",
+			"required": "true"
 		},
 		{
 			"name": "facetTemplate",

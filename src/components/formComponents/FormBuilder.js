@@ -17,17 +17,22 @@ import swatchesConfig from "../../config/formConfig/swatches.json";
 import noResultsConfig from "../../config/formConfig/noResults.json";
 import loaderConfig from "../../config/formConfig/loader.json";
 
+// import { getAllConfig } from "../../utils/getConfig";
+
 import CodeMirror from "@uiw/react-codemirror";
 import { darculaInit } from "@uiw/codemirror-theme-darcula";
 import { tags as t } from "@lezer/highlight";
 import { javascript } from "@codemirror/lang-javascript";
 
-import defaultConfig from "../../inputJson/dummyMadrasLink.json";
+// import defaultConfig from "../../inputJson/dummy.json";
+// import defaultConfig from "../../inputJson/dummyMadrasLink.json";
+import defaultConfig from "../../inputJson/dummyMadrasLinkOld.json";
 import { Button, Modal } from "unbxd-react-components";
 // import defaultConfig from "../inputJson/empty.json";
 
 const FormBuilder = (props = {}) => {
-	const { viewConfigTab, setValidatedConfig } = props;
+	const { viewConfigTab, setValidatedConfig, hideConfigTab, showConfigTab } =
+		props;
 	let masterConfig = {};
 	let validatedData = {};
 	const [formData, setFormData] = useState(defaultConfig);
@@ -42,18 +47,20 @@ const FormBuilder = (props = {}) => {
 		searchBoxConfig,
 		productsConfig,
 		facetsConfig,
-		paginationConfig,
 		pageSizeConfig,
 		sortingConfig,
 		productViewConfig,
-		breadcrumbsConfig,
 		spellCheckConfig,
-		bannerConfig,
-		variantsConfig,
+		loaderConfig,
 		swatchesConfig,
 		noResultsConfig,
-		loaderConfig,
+		// variantsConfig,
+		paginationConfig,
+		// breadcrumbsConfig,
+		// bannerConfig,
 	];
+
+	// const formConfigs = getAllConfig();
 
 	const updateMasterConfig = (formConfigs) => {
 		formConfigs.map((formConfig = {}, i) => {
@@ -75,20 +82,6 @@ const FormBuilder = (props = {}) => {
 			});
 		} else {
 			setFormData({ ...formData, ...data });
-		}
-	};
-
-	const changeFormData = (field, code) => {
-		try {
-			console.log(
-				field,
-				typeof code,
-				typeof JSON.parse(code),
-				JSON.parse(code)
-			);
-			setFormData(JSON.parse(code));
-		} catch (err) {
-			console.log(err);
 		}
 	};
 
@@ -219,7 +212,6 @@ const FormBuilder = (props = {}) => {
 			return setSelectedAcc(null);
 		}
 		setSelectedAcc(i);
-		// console.log(e);
 	};
 
 	let toggleConfig = () => {
@@ -246,10 +238,16 @@ const FormBuilder = (props = {}) => {
 			// style={viewConfigTab ? { display: "inline-block" } : { display: "none" }}
 		>
 			<div className="formDescription">
+				<div className="hideConfigTab">
+					<div className="showArrowLeft" onClick={() => hideConfigTab()}>
+						<span></span>
+					</div>
+					Hide Configuration Tab
+				</div>
 				<div className="formDescriptionHeader">
 					<h1>SDK Configuration</h1>{" "}
 					<Button appearance="link" onClick={() => toggleConfig()}>
-						Show Config
+						View JSON
 					</Button>
 				</div>
 				{/* <p>
@@ -283,10 +281,9 @@ const FormBuilder = (props = {}) => {
 									</div>
 									{selectedAcc == i && (
 										<div className={"accordianContent"}>
-											<div className="accordianDesc">
-												{/* The spell check feature provides spelling suggestions or
-												spell-checks for misspelled search queries. */}
-												{formConfig.moduleDesc}
+											{/* <div className="accordianDesc">
+											{formConfig.moduleDesc}
+												<br />
 												<a
 													className="moduleLink"
 													href={formConfig.docLink}
@@ -294,8 +291,8 @@ const FormBuilder = (props = {}) => {
 												>
 													Click Here
 												</a>{" "}
-												to know more about Search
-											</div>
+												to know more about {formConfig.moduleName}.
+											</div> */}
 											<FormWrapper
 												key={i}
 												updateFormData={updateFormData}
@@ -336,6 +333,7 @@ const FormBuilder = (props = {}) => {
 			</div>
 			<div className="formjson hidden" id="formjson">
 				<CodeMirror
+					className="jsonCode"
 					value={JSON.stringify(formData, null, 4)}
 					theme={darculaInit({
 						settings: {
@@ -345,7 +343,7 @@ const FormBuilder = (props = {}) => {
 						styles: [{ tag: t.comment, color: "#6272a4" }],
 					})}
 					placeholder="Insert code here..."
-					height="600px"
+					height="490px"
 					width="500px"
 					extensions={[javascript({ json: true })]}
 				/>

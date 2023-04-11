@@ -1,6 +1,6 @@
 *,
 body {
-  font-family: "Nunito Sans", "Barlow", "Helvetica Neue", "Helvetica", "Roboto",
+  font-family: "Poppins", "Nunito Sans", "Barlow", "Helvetica Neue", "Helvetica", "Roboto",
     "sans-serif";
 }
 
@@ -88,17 +88,23 @@ body {
 }
 
 .UNX-input-wrapper {
-  width: 350px;
+  width: 750px;
   padding-left: 5px;
-  margin-right: 24px;
+  margin-right: 100px;
   margin-left: 50px;
 }
+
 
 .UNX-search-btn {
   background-color: transparent;
   color: rgb(185, 185, 185);
   left: 0px;
   border-color: transparent;
+}
+
+.UNX-no-result {
+  display: flex;
+  align-items: center;
 }
 
 .UNX-result-header {
@@ -123,15 +129,17 @@ body {
 
 .UNX-facet-wrapper {
   width: 262px;
+  height: 1000px;
   padding: 0px 24px;
   background: rgb(255, 255, 255);
   border: solid 1px #e9eaef;
   border-radius: 4px;
+  overflow: scroll;
 }
 
 .UNX-facet-header {
   color: #0a0b0c;
-  font-family: "Nunito Sans";
+  font-family: "Poppins", "Nunito Sans";
   font-size: 16px;
   letter-spacing: 0;
   line-height: 22px;
@@ -140,7 +148,7 @@ body {
 
 .UNX-filter-header {
   color: #666666;
-  font-family: "Nunito Sans";
+  font-family: "Poppins", "Nunito Sans";
   font-size: 16px;
   font-weight: 600;
   letter-spacing: 0;
@@ -171,6 +179,11 @@ body {
 
 .UNX-bread-crumb-item {
   padding-left: 0px;
+  cursor: pointer;
+}
+
+.UNX-bread-crumb-item:hover {
+  color: #8755d8;
 }
 
 .UNX-category-icon {
@@ -193,6 +206,7 @@ body {
 
 .UNX-multilevel-facet {
   margin-bottom: 0px;
+  cursor: pointer;
 }
 
 .UNX-pagination-block {
@@ -201,6 +215,12 @@ body {
 
 .UNX-page-no-block .UNX-page-button {
   padding: 1px 8px;
+  border: 1px solid #ccc;
+  height: 30px;
+  width: 30px;
+  border-radius: 100%;
+  margin: 0 2px;
+  cursor: pointer;
 }
 
 .UNX-facets-results-block .UNX-range-slider-wrap {
@@ -260,7 +280,7 @@ body {
   
   width: 100%;
   color: #273251;
-  font-family: "Nunito Sans";
+  font-family: "Poppins", "Nunito Sans";
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0;
@@ -293,6 +313,7 @@ body {
   font-size: 24px;
   padding: 2px 4px;
   cursor: pointer;
+  display: block;
 }
 
 .UNX-list-block {
@@ -367,8 +388,11 @@ body {
 }
 
 .UNX-page-button.UNX-selected-page-item {
-  background-color: transparent;
-  color: #6b8ee5;
+  /* background-color: transparent; */
+  background-color: #6b8ee5;
+  /* color: #6b8ee5; */
+  border: 1px solid #6b8ee5;
+  border-radius: 100%;
 }
 
 .product-view-container {
@@ -651,32 +675,40 @@ body {
 
 .UNX-grid-btn {
   background-image: url("/styles/components/icons/icons.svg");
-  background-size: auto;
   height: 50px;
   width: 40px;
   background-position: -56px -202px;
-  margin-top: 10px;
+  font-size: 0;
+  margin-top: 13px;
+  margin-left: 10px;
+  padding: 0;
 }
 
 .UNX-list-btn {
   background-image: url("/styles/components/icons/icons.svg");
-  background-size: auto;
   height: 50px;
   width: 40px;
   background-position: -4px -202px;
-  margin-top: 10px;
+  margin-top: 13px;
+  font-size: 0;
+  padding: 0;
 }
 
 .UNX-list-btn.UNX-selected-product-view {
   background-image: url("/styles/components/icons/sprite.svg");
   background-position: -615px -664px;
-  margin-top: 22px;
+  font-size: 0;
+  margin-top: 25px;
+  margin-left: 10px;
+  padding: 0;
 }
 
 .UNX-grid-btn.UNX-selected-product-view {
   background-image: url("/styles/components/icons/sprite.svg");
   background-position: -615px -614px;
-  margin-top: 22px;
+  font-size: 0;
+  margin-top: 25px;
+  padding: 0;
 }
 
 .UNX-grid-btn:before,
@@ -719,6 +751,7 @@ body {
   width: 50px;
   background-position: -103px -103px;
   background-color: transparent;
+  cursor:auto;
 }
 
 .UNX-pagination-block .UNX-next-btn {
@@ -728,6 +761,7 @@ body {
   height: 12px;
   background-position: -126px -1218px;
   background-color: #fbfbfb;
+  cursor: pointer;
 }
 
 .UNX-pagination-block .UNX-prev-btn {
@@ -737,6 +771,7 @@ body {
   height: 12px;
   background-position: -176px -1218px;
   background-color: #fbfbfb;
+  cursor: pointer
 }
 
 .UNX-pagination-block .UNX-prev-btn[disabled] {
@@ -860,15 +895,17 @@ input[id^="likeBtn"]:checked ~ .UNX-favourite {
 
 .UNX-product-results {
   justify-content: left;
-  padding-left: 20px;
+  /* padding-left: 20px; */
 }
 
 .UNX-product-list {
   display: block;
-  width: 75%;
+  width: calc(100% - 262px);
+  height: 1000px;
   margin-left: 0;
   padding-left: 24px;
-  background: #f7f9fb;
+  /* background: #f7f9fb; */
+  overflow: scroll;
 }
 
 .UNX-result-wrapper.UNX-no-results-wrap {
@@ -1302,7 +1339,7 @@ input[id^="likeBtn"]:checked ~ .UNX-favourite {
 
 .clickstream-title {
   color: #4b5975;
-  font-family: "Nunito Sans";
+  font-family: "Poppins","Nunito Sans";
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0;
@@ -1318,7 +1355,7 @@ input[id^="likeBtn"]:checked ~ .UNX-favourite {
 
 .count {
   color: #577ede;
-  font-family: "Nunito Sans";
+  font-family: "Poppins","Nunito Sans";
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0;
@@ -1327,7 +1364,7 @@ input[id^="likeBtn"]:checked ~ .UNX-favourite {
 
 .title {
   color: #4b5975;
-  font-family: "Nunito Sans";
+  font-family: "Poppins","Nunito Sans";
   font-size: 11px;
   letter-spacing: 0;
   line-height: 15px;

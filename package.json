@@ -14,12 +14,14 @@
 	"dependencies": {
 		"@lezer/highlight": "^1.1.3",
 		"@uiw/codemirror-theme-dracula": "^4.19.9",
-		"@unbxd-ui/react-search-sdk": "^1.2.26",
+		"@unbxd-ui/vanilla-search-library": "^2.0.31",
+		"express": "^4.18.2",
 		"fs": "0.0.1-security",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-router-dom": "^6.10.0",
-		"unbxd-react-components": "^0.2.94"
+		"unbxd-react-components": "^0.2.94",
+		"use-deep-compare-effect": "^1.6.1"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.21.3",

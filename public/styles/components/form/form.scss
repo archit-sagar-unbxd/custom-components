@@ -67,6 +67,27 @@
     height: 15px;
 }
 
+@mixin arrow-blue-right {
+    @extend .sprite;
+    background-position: -126px -1219px;
+    width: 6px;
+    height: 11px;
+}
+
+@mixin arrow-grey-left {
+    @extend .sprite;
+    background-position: -522px -920px;
+    width: 6px;
+    height: 10px;
+}
+
+@mixin double-arrow-grey-right {
+    @extend .sprite;
+    background-position: -620px -570px;
+    width: 12px;
+    height: 12px;
+}
+
 .down-arrow-dark {
     @extend .sprite;
     // background-position: -24px -173px;
@@ -135,7 +156,7 @@ form {
         border: 1px solid #c8d0db;
         // padding: 0px 15px;
         padding: 10px 15px;
-        width: 92%;
+        width: 90%;
         // width: 100%;
 
         &[type="checkbox"] {
